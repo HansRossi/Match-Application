@@ -152,12 +152,6 @@ function App() {
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0)
   const [selectedChat, setSelectedChat] = useState<Match | null>(null)
   const [likedProfiles, setLikedProfiles] = useState<string[]>([])
-  const [filters, setFilters] = useState({
-    skills: [] as string[],
-    location: '',
-    experience: '',
-    age: { min: 13, max: 100 }
-  })
   
   // Состояние регистрации
   const [registrationStep, setRegistrationStep] = useState(1)
@@ -190,22 +184,7 @@ function App() {
     setCurrentScreen('discover')
   }
 
-  const handleLike = () => {
-    if (currentProfileIndex < availableProfiles.length) {
-      const likedUser = availableProfiles[currentProfileIndex]
-      const newMatch: Match = {
-        id: Date.now().toString(),
-        user: likedUser,
-        timestamp: new Date()
-      }
-      setMatches([...matches, newMatch])
-      setCurrentProfileIndex(currentProfileIndex + 1)
-    }
-  }
 
-  const handlePass = () => {
-    setCurrentProfileIndex(currentProfileIndex + 1)
-  }
 
   const toggleSkill = (skill: string, type: 'skills' | 'interests' | 'lookingFor') => {
     const current = formData[type]
@@ -635,7 +614,7 @@ function App() {
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
-            onClick={(e) => {
+            onClick={() => {
               // Только если не свайпаем
               if (!swipeData.isDragging && Math.abs(swipeData.currentX - swipeData.startX) < 10) {
                 setIsCardFlipped(!isCardFlipped)
@@ -871,7 +850,14 @@ function App() {
     </div>
   )
 
-  const [chatMessages, setChatMessages] = useState<{[key: string]: any[]}>({})
+  interface ChatMessage {
+    id: number
+    text: string
+    sender: string
+    timestamp: Date
+  }
+
+  const [chatMessages, setChatMessages] = useState<{[key: string]: ChatMessage[]}>({})
   const [newMessage, setNewMessage] = useState('')
 
   const renderChatScreen = () => {

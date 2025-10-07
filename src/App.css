@@ -680,11 +680,210 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   height: 100%;
+  /* 3D флип карточки */
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+/* Флип анимация */
+.profile-card.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Лицевая и обратная стороны карточки */
+.card-front,
+.card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backface-visibility: hidden;
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 25px;
+}
+
+/* Упрощенная лицевая сторона */
+.card-front .profile-photo-container {
+  height: 60%;
+}
+
+.card-front .card-info {
+  padding: 20px;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-front .main-info .name {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #FFFFFF, #E5E7EB);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-front .age-location {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.card-front .interests-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.card-front .skill-bubble {
+  background: linear-gradient(135deg, #6366F1, #8B5CF6);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+}
+
+.card-front .more-skills {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.card-front .tap-hint {
+  text-align: center;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  animation: pulse 2s infinite;
 }
 
 .main-card {
   z-index: 100;
   transform: scale(1) rotate(0deg);
+}
+
+/* Детальная обратная сторона */
+.card-back .detailed-info {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-back .back-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.card-back .back-header h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+}
+
+.card-back .flip-back-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: background 0.2s;
+}
+
+.card-back .flip-back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.card-back .bio-section,
+.card-back .skills-section,
+.card-back .experience-section,
+.card-back .links-section {
+  margin-bottom: 20px;
+}
+
+.card-back .bio-section h4,
+.card-back .skills-section h4,
+.card-back .experience-section h4,
+.card-back .links-section h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 10px;
+}
+
+.card-back .bio-section p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.card-back .skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.card-back .skill-tag-detailed {
+  background: rgba(99, 102, 241, 0.2);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  color: #A5B4FC;
+}
+
+.card-back .experience-badge {
+  background: linear-gradient(135deg, #10B981, #059669);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  display: inline-block;
+}
+
+.card-back .links {
+  display: flex;
+  gap: 10px;
+}
+
+.card-back .link-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 15px;
+  border-radius: 20px;
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.card-back .link-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
 }
 
 .stack-card {
